@@ -52,3 +52,10 @@ Office `.docx` share the same `PK\x03\x04` prefix; this library reports
   `offset: int = 0`.
 - `SniffResult` — a `dataclass` with `type_name: Optional[str]`,
   `matched_signature: Optional[FileSignature]`, `bytes_read: bytes`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
